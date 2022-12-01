@@ -17,7 +17,7 @@ dir=day$(printf %02d "$day")
 cd $dir
 case "$day" in
   1)
-    ./sol.l
+    pil sol.l
     ;;
   3)
     make && ./sol

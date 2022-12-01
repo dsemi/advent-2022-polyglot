@@ -1,5 +1,4 @@
-#!/usr/bin/pil
-
+(prinl "Day 1: Picolisp")
 (in "input.txt"
   (let (elves NIL
         elf 0)
