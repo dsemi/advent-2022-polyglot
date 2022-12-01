@@ -1,15 +1,26 @@
+#!/bin/bash
+
+DAYS=(1)
+
 if [[ "$#" -ne 1 ]]; then
   echo "Incorrect number of arguments" >>/dev/stderr
   exit 1
 fi
 
-case "$1" in
+day="$1"
+if [[ ! "${DAYS[*]}" =~ "$day" ]]; then
+  echo "Invalid day" >>/dev/stderr
+  exit 1
+fi
+
+dir=day$(printf %02d "$day")
+cd $dir
+case "$day" in
   1)
-    pushd day01 > /dev/null
-    make && ./sol
-    popd > /dev/null
+    ./sol.l
     ;;
-  *)
-    echo "Unimplemented day"
+  3)
+    make && ./sol
     ;;
 esac
+cd ..
