@@ -6,3 +6,15 @@ Run a specific day with `./run.sh <day>`
 Requirements:
  - [Picolisp](https://picolisp.com/)
 
+## Day 2: Lua
+Requirements:
+ - [LuaJIT](https://luajit.org/)
+
+## Day 3: Raku
+Requirements:
+ - [Raku](https://www.raku.org/)
+
+## Day 4: C
+Requirements:
+ - [Make](https://www.gnu.org/software/make/)
+ - [Clang](https://clang.llvm.org/)

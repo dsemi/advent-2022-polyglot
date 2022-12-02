@@ -1,5 +1,5 @@
 (prinl "Day 1: Picolisp")
-(in "input.txt"
+(in NIL
   (let (elves NIL
         elf 0)
     (until (eof)
