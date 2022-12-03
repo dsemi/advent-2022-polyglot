@@ -22,5 +22,8 @@ case "$day" in
   2)
     luajit sol.lua < input.txt
     ;;
+  3)
+    raku sol.raku < input.txt
+    ;;
 esac
 cd ..
