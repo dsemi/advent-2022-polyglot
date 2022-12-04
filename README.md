@@ -1,6 +1,6 @@
 # Advent of Code 2022
 Each day is implemented in a different programming language.
-Run a specific day with `./run.sh <day>`
+Run a specific day with `./run.sh <day> <other_day>...`
 
 ## Day 1: Picolisp
 Requirements:
