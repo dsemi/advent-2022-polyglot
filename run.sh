@@ -6,8 +6,10 @@ if [[ "$#" -lt 1 ]]; then
   echo "Incorrect number of arguments" >&2
   exit 1
 fi
-
-for day in "$@"; do
+args=( "$@" )
+last=$(( ${#args[*]}-1 ))
+for i in $(seq 0 $last); do
+  day=${args[$i]}
   if [[ ! "${DAYS[*]}" =~ "$day" ]]; then
     echo "Invalid day" >&2
     continue
@@ -30,4 +32,7 @@ for day in "$@"; do
       ;;
   esac
   cd ..
+  if [[ "$i" -ne "$last" ]]; then
+    echo
+  fi
 done
