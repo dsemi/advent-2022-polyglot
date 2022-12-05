@@ -18,3 +18,7 @@ Requirements:
 Requirements:
  - [Make](https://www.gnu.org/software/make/)
  - [Clang](https://clang.llvm.org/)
+
+## Day 5: Ruby
+Requirements:
+ - [Ruby](https://www.ruby-lang.org/)

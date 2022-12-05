@@ -28,7 +28,10 @@ for i in $(seq 0 $last); do
       raku sol.raku < input.txt
       ;;
     4)
-      make && ./sol < input.txt
+      make -s && ./sol < input.txt
+      ;;
+    5)
+      ruby sol.rb < input.txt
       ;;
   esac
   cd ..
