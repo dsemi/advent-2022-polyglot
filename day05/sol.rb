@@ -18,8 +18,7 @@ pts[1].lines.each do |line|
   n.times do
     stacks1[b-1].push(stacks1[a-1].pop)
   end
-  stacks2[b-1].push(*stacks2[a-1][-n, n])
-  stacks2[a-1] = stacks2[a-1].take(stacks2[a-1].length - n)
+  stacks2[b-1].concat(stacks2[a-1].pop(n))
 end
 puts "Part 1: %20s" % stacks1.map(&:last).join
 puts "Part 2: %20s" % stacks2.map(&:last).join

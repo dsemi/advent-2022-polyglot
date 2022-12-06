@@ -16,9 +16,14 @@ Requirements:
 
 ## Day 4: C
 Requirements:
- - [Make](https://www.gnu.org/software/make/)
  - [Clang](https://clang.llvm.org/)
+ - [Make](https://www.gnu.org/software/make/)
 
 ## Day 5: Ruby
 Requirements:
  - [Ruby](https://www.ruby-lang.org/)
+
+## Day 6: OCaml
+Requirements:
+ - [OCaml](https://ocaml.org/)
+ - [Make](https://www.gnu.org/software/make/)

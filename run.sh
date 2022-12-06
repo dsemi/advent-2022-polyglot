@@ -33,6 +33,9 @@ for i in $(seq 0 $last); do
     5)
       ruby sol.rb < input.txt
       ;;
+    6)
+      make -s && ./sol < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then
