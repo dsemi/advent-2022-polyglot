@@ -36,6 +36,9 @@ for i in $(seq 0 $last); do
     6)
       make -s && ./sol < input.txt
       ;;
+    7)
+      make -s && ./sol < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then

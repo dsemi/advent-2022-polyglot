@@ -27,3 +27,8 @@ Requirements:
 Requirements:
  - [OCaml](https://ocaml.org/)
  - [Make](https://www.gnu.org/software/make/)
+
+## Day 7: Pascal
+Requirements:
+ - [Free Pascal](https://www.freepascal.org/)
+ - [Make](https://www.gnu.org/software/make/)
