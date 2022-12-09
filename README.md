@@ -32,3 +32,8 @@ Requirements:
 Requirements:
  - [Free Pascal](https://www.freepascal.org/)
  - [Make](https://www.gnu.org/software/make/)
+
+## Day 8: Crystal
+Requirements:
+ - [Crystal](https://crystal-lang.org/)
+ - [Make](https://www.gnu.org/software/make/)
