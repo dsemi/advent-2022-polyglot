@@ -37,3 +37,7 @@ Requirements:
 Requirements:
  - [Crystal](https://crystal-lang.org/)
  - [Make](https://www.gnu.org/software/make/)
+
+## Day 9: Python
+Requirements:
+ - [Python](https://www.python.org/)
