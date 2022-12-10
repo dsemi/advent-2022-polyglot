@@ -41,3 +41,8 @@ Requirements:
 ## Day 9: Python
 Requirements:
  - [Python](https://www.python.org/)
+
+## Day 10: Haskell
+Requirements:
+ - [GHC](https://www.haskell.org/ghc/)
+ - [Make](https://www.gnu.org/software/make/)

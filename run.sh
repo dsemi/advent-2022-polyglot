@@ -45,6 +45,9 @@ for i in $(seq 0 $last); do
     9)
       python sol.py < input.txt
       ;;
+    10)
+      make -s && ./sol < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then
