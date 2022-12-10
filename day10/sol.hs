@@ -14,11 +14,11 @@ chunk n xs = let (ys, zs) = splitAt n xs
              in ys : chunk n zs
 
 solve :: String -> String
-solve input = let states = run input
-                  p1 = sum $ map (uncurry (*)) $ filter (\(c, x) -> c `elem` [20, 60, 100, 140, 180, 220]) states
-                  p2 = ('\n':) $ unlines $ chunk 40
-                       $ map (\(c, x) -> if abs ((c - 1) `mod` 40 - x) <= 1 then '#' else ' ') states
-              in printf "Part 1: %20d\nPart 2: %20s" p1 p2
+solve input = printf "Part 1: %20d\nPart 2: %20s" p1 p2
+    where states = run input
+          p1 = sum $ map (uncurry (*)) $ filter ((`elem` [20, 60, 100, 140, 180, 220]) . fst) states
+          p2 = ('\n':) $ unlines $ chunk 40
+               $ map (\(c, x) -> if abs ((c - 1) `mod` 40 - x) <= 1 then '#' else ' ') states
 
 main :: IO ()
 main = do
