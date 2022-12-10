@@ -2,8 +2,8 @@ module Main where
 
 import Text.Printf
 
-run :: String -> [(Int, Int)]
-run = zip [1..] . scanl (+) 1 . map go . init . words
+run :: String -> [Int]
+run = scanl (+) 1 . map go . init . words
     where go "addx" = 0
           go "noop" = 0
           go n = read n
@@ -16,9 +16,9 @@ chunk n xs = let (ys, zs) = splitAt n xs
 solve :: String -> String
 solve input = printf "Part 1: %20d\nPart 2: %20s" p1 p2
     where states = run input
-          p1 = sum $ map (uncurry (*)) $ filter ((`elem` [20, 60, 100, 140, 180, 220]) . fst) states
+          p1 = sum $ map (uncurry (*)) $ filter ((== 20) . (`mod` 40) . fst) $ zip [1..] states
           p2 = ('\n':) $ unlines $ chunk 40
-               $ map (\(c, x) -> if abs ((c - 1) `mod` 40 - x) <= 1 then '#' else ' ') states
+               $ zipWith (\c x -> if abs (c `mod` 40 - x) <= 1 then '#' else ' ') [0..] states
 
 main :: IO ()
 main = do
