@@ -65,5 +65,5 @@ solve input = printf "Part 1: %20d\nPart 2: %20s\n" p1 p2
 
 main :: IO ()
 main = do
-  putStrLn "Day 9: Haskell"
+  putStrLn "Day 10: Haskell"
   interact solve
