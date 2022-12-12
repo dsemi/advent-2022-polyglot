@@ -46,3 +46,8 @@ Requirements:
 Requirements:
  - [GHC](https://www.haskell.org/ghc/)
  - [Make](https://www.gnu.org/software/make/)
+
+## Day 11: D
+Requirements:
+ - [LDC](https://wiki.dlang.org/LDC)
+ - [Make](https://www.gnu.org/software/make/)
