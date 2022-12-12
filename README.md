@@ -51,3 +51,7 @@ Requirements:
 Requirements:
  - [LDC](https://wiki.dlang.org/LDC)
  - [Make](https://www.gnu.org/software/make/)
+
+## Day 12: Dart
+Requirements:
+ - [Dart](https://dart.dev/)

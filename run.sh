@@ -51,6 +51,9 @@ for i in $(seq 0 $last); do
     11)
       make -s && ./sol < input.txt
       ;;
+    12)
+      dart sol.dart < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then
