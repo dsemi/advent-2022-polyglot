@@ -55,3 +55,7 @@ Requirements:
 ## Day 12: Dart
 Requirements:
  - [Dart](https://dart.dev/)
+
+## Day 13: JavaScript
+Requirements:
+ - [NodeJS](https://nodejs.org/)

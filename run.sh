@@ -54,6 +54,9 @@ for i in $(seq 0 $last); do
     12)
       dart sol.dart < input.txt
       ;;
+    13)
+      node sol.js < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then
