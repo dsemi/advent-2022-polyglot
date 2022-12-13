@@ -1,20 +1,14 @@
 console.log('Day 13: JavaScript');
 
 const readline = require('readline');
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  terminal: false,
-});
+const rl = readline.createInterface({input: process.stdin});
 
 function cmp(a, b) {
-  let ta = typeof a;
-  let tb = typeof b;
-  if (ta == 'number' && tb == 'number') {
+  if (typeof a == 'number' && typeof b == 'number') {
     return (a < b) ? -1 : (a > b) ? 1 : 0;
-  } else if (ta == 'number' && tb == 'object') {
+  } else if (typeof a == 'number' && typeof b == 'object') {
     return cmp([a], b);
-  } else if (ta == 'object' && tb == 'number') {
+  } else if (typeof a == 'object' && typeof b == 'number') {
     return cmp(a, [b]);
   } else {
     for (let i = 0; i < Math.min(a.length, b.length); i++) {
@@ -25,29 +19,20 @@ function cmp(a, b) {
   }
 }
 
-let p1 = 0;
-let p2 = 1;
 let packets = [];
 
-let i = 1;
-rl.on('line', (line) => {
-  if (line == '') {
-    if (cmp(packets[packets.length-2], packets[packets.length-1]) == -1) p1 += i;
-    i++;
-  } else {
-    packets.push(eval(line));
-  }
-});
+rl.on('line', (line) => { if (line != '') packets.push(eval(line)) });
 
 rl.once('close', () => {
-  if (cmp(packets[packets.length-2], packets[packets.length-1]) == -1) p1 += i;
+  let p1 = 0;
+  for (let i = 1; i < packets.length; i += 2) {
+    if (cmp(packets[i-1], packets[i]) < 0) p1 += (i+1)/2;
+  }
+  console.log('Part 1: ' + p1.toString().padStart(20));
   let a = [[2]];
   let b = [[6]];
-  packets.push(a);
-  packets.push(b);
+  packets.push(a, b);
   packets.sort(cmp);
-  p2 *= packets.findIndex(e => e == a) + 1;
-  p2 *= packets.findIndex(e => e == b) + 1;
-  console.log('Part 1: ' + p1.toString().padStart(20));
+  let p2 = (packets.findIndex(e => e == a) + 1) * (packets.findIndex(e => e == b) + 1);
   console.log('Part 2: ' + p2.toString().padStart(20));
 });
