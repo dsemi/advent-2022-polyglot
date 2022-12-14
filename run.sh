@@ -57,6 +57,9 @@ for i in $(seq 0 $last); do
     13)
       node sol.js < input.txt
       ;;
+    14)
+      make -s && ./sol < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then

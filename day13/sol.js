@@ -10,18 +10,17 @@ function cmp(a, b) {
     return cmp([a], b);
   } else if (typeof a == 'object' && typeof b == 'number') {
     return cmp(a, [b]);
-  } else {
-    for (let i = 0; i < Math.min(a.length, b.length); i++) {
-      let c = cmp(a[i], b[i]);
-      if (c != 0) return c;
-    }
-    return cmp(a.length, b.length);
   }
+  for (let i = 0; i < Math.min(a.length, b.length); i++) {
+    let c = cmp(a[i], b[i]);
+    if (c != 0) return c;
+  }
+  return cmp(a.length, b.length);
 }
 
 let packets = [];
 
-rl.on('line', (line) => { if (line != '') packets.push(eval(line)) });
+rl.on('line', (line) => { if (line != '') packets.push(JSON.parse(line)); });
 
 rl.once('close', () => {
   let p1 = 0;

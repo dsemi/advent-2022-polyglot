@@ -59,3 +59,7 @@ Requirements:
 ## Day 13: JavaScript
 Requirements:
  - [NodeJS](https://nodejs.org/)
+
+## Day 14: Zig
+Requirements:
+  - [Zig](https://ziglang.org/)
