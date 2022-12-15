@@ -60,6 +60,9 @@ for i in $(seq 0 $last); do
     14)
       make -s && ./sol < input.txt
       ;;
+    15)
+      make -s && scala main < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then

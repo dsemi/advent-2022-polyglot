@@ -62,4 +62,8 @@ Requirements:
 
 ## Day 14: Zig
 Requirements:
-  - [Zig](https://ziglang.org/)
+ - [Zig](https://ziglang.org/)
+
+## Day 15: Scala
+Requirements:
+ - [Scala](https://www.scala-lang.org/)

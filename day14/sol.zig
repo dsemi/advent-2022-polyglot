@@ -5,25 +5,20 @@ const Coord = struct {
     y: usize,
 };
 
-fn go(grid: *std.ArrayList([1000]u8), p2: bool, coord: Coord) bool {
-    if (coord.y >= grid.items.len) return p2;
-    const v = grid.items[coord.y][coord.x];
-    if (v == '~') return false;
-    if (v == '#' or v == 'o') return true;
-    const b = go(grid, p2, Coord{ .x = coord.x, .y = coord.y + 1 }) and
-        go(grid, p2, Coord{ .x = coord.x - 1, .y = coord.y + 1 }) and
-        go(grid, p2, Coord{ .x = coord.x + 1, .y = coord.y + 1 });
-    grid.items[coord.y][coord.x] = if (b) 'o' else '~';
+fn go(grid: *std.ArrayList([1000]u8), p2: bool, x: usize, y: usize) bool {
+    if (y >= grid.items.len) return p2;
+    if (grid.items[y][x] == '~') return false;
+    if (grid.items[y][x] == '#' or grid.items[y][x] == 'o') return true;
+    const b = go(grid, p2, x, y + 1) and go(grid, p2, x - 1, y + 1) and go(grid, p2, x + 1, y + 1);
+    grid.items[y][x] = if (b) 'o' else '~';
     return b;
 }
 
 fn flowSand(grid: *std.ArrayList([1000]u8), p2: bool) usize {
-    _ = go(grid, p2, Coord{ .x = 500, .y = 0 });
+    _ = go(grid, p2, 500, 0);
     var settled: usize = 0;
     for (grid.items) |row| {
-        for (row) |v| {
-            if (v == 'o') settled += 1;
-        }
+        for (row) |v| settled += @boolToInt(v == 'o');
     }
     return settled;
 }
@@ -38,9 +33,7 @@ pub fn main() !void {
 
     var grid = std.ArrayList([1000]u8).init(a);
     while (try stdin.readUntilDelimiterOrEofAlloc(a, '\n', 1000)) |line| {
-        defer a.free(line);
         var pts = std.ArrayList(Coord).init(a);
-        defer pts.deinit();
         var it = std.mem.split(u8, line, " -> ");
         while (it.next()) |pt| {
             const idx = std.mem.indexOfScalar(u8, pt, ',').?;
@@ -71,8 +64,6 @@ pub fn main() !void {
         }
     }
     var grid2 = try grid.clone();
-    const p1 = flowSand(&grid, false);
-    try stdout.print("Part 1: {:20}\n", .{p1});
-    const p2 = flowSand(&grid2, true);
-    try stdout.print("Part 2: {:20}\n", .{p2});
+    try stdout.print("Part 1: {:20}\n", .{flowSand(&grid, false)});
+    try stdout.print("Part 2: {:20}\n", .{flowSand(&grid2, true)});
 }
