@@ -67,3 +67,7 @@ Requirements:
 ## Day 15: Scala
 Requirements:
  - [Scala](https://www.scala-lang.org/)
+
+## Day 16: Racket
+Requirements:
+ - [Racket](https://racket-lang.org/)

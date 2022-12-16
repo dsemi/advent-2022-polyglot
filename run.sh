@@ -63,6 +63,9 @@ for i in $(seq 0 $last); do
     15)
       make -s && scala main < input.txt
       ;;
+    16)
+      racket sol.rkt < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then
