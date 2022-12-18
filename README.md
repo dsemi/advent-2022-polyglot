@@ -63,11 +63,17 @@ Requirements:
 ## Day 14: Zig
 Requirements:
  - [Zig](https://ziglang.org/)
+ - [Make](https://www.gnu.org/software/make/)
 
 ## Day 15: Scala
 Requirements:
  - [Scala](https://www.scala-lang.org/)
+ - [Make](https://www.gnu.org/software/make/)
 
 ## Day 16: Racket
 Requirements:
  - [Racket](https://racket-lang.org/)
+
+## Day 17: Clojure
+Requirements:
+ - [Clojure](https://clojure.org/)

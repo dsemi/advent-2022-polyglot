@@ -66,6 +66,9 @@ for i in $(seq 0 $last); do
     16)
       racket sol.rkt < input.txt
       ;;
+    17)
+      clj -M sol.clj < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then
