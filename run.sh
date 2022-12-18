@@ -69,6 +69,9 @@ for i in $(seq 0 $last); do
     17)
       clj -M sol.clj < input.txt
       ;;
+    18)
+      make -s && kotlin SolKt < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then

@@ -77,3 +77,8 @@ Requirements:
 ## Day 17: Clojure
 Requirements:
  - [Clojure](https://clojure.org/)
+
+## Day 18: Kotlin
+Requirements:
+ - [Kotlin](https://kotlinlang.org/)
+ - [Make](https://www.gnu.org/software/make/)

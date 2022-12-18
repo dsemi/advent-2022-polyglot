@@ -1,3 +1,5 @@
 sol
 *.class
 *.tasty
+
+META-INF
