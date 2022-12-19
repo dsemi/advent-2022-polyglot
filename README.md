@@ -82,3 +82,7 @@ Requirements:
 Requirements:
  - [Kotlin](https://kotlinlang.org/)
  - [Make](https://www.gnu.org/software/make/)
+
+## Day 19: Julia
+Requirements:
+ - [Julia](https://julialang.org/)

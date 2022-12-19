@@ -72,6 +72,9 @@ for i in $(seq 0 $last); do
     18)
       make -s && kotlin SolKt < input.txt
       ;;
+    19)
+      julia sol.jl < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then
