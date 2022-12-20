@@ -75,6 +75,9 @@ for i in $(seq 0 $last); do
     19)
       julia sol.jl < input.txt
       ;;
+    20)
+      sbcl --script sol.lisp < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then

@@ -86,3 +86,7 @@ Requirements:
 ## Day 19: Julia
 Requirements:
  - [Julia](https://julialang.org/)
+
+## Day 20: Common Lisp
+Requirements:
+ - [SBCL](https://www.sbcl.org/)
