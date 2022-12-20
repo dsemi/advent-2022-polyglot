@@ -35,5 +35,5 @@
          (nth (nth (mod (+ z 3000) (length locs)) locs) ns)))))
 
 (let* ((ns (read-ns)))
-  (format t "Part 1: ~20d~%" (mix (copy-list ns) 1))
+  (format t "Part 1: ~20d~%" (mix ns 1))
   (format t "Part 2: ~20d~%" (mix (mapcar (lambda (n) (* n 811589153)) ns) 10)))
