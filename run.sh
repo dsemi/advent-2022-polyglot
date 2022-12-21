@@ -78,6 +78,9 @@ for i in $(seq 0 $last); do
     20)
       sbcl --script sol.lisp < input.txt
       ;;
+    21)
+      go run sol.go < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then

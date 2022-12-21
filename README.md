@@ -90,3 +90,7 @@ Requirements:
 ## Day 20: Common Lisp
 Requirements:
  - [SBCL](https://www.sbcl.org/)
+
+## Day 21: Go
+Requirements:
+ - [Go](https://go.dev/)
