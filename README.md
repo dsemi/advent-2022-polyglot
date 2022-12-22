@@ -94,3 +94,8 @@ Requirements:
 ## Day 21: Go
 Requirements:
  - [Go](https://go.dev/)
+
+## Day 22: Java
+Requirements:
+ - [Java](https://www.oracle.com/java/technologies/downloads/)
+ - [Make](https://www.gnu.org/software/make/)
