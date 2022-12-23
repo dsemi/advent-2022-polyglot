@@ -84,6 +84,9 @@ for i in $(seq 0 $last); do
     22)
       make -s && java sol < input.txt
       ;;
+    23)
+      make -s && ./sol < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then

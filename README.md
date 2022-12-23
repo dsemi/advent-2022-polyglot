@@ -99,3 +99,7 @@ Requirements:
 Requirements:
  - [Java](https://www.oracle.com/java/technologies/downloads/)
  - [Make](https://www.gnu.org/software/make/)
+
+## Day 23: C++
+ - [Clang](https://clang.llvm.org/)
+ - [Make](https://www.gnu.org/software/make/)
