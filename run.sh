@@ -87,6 +87,9 @@ for i in $(seq 0 $last); do
     23)
       make -s && ./sol < input.txt
       ;;
+    24)
+      make -s && ./sol < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then
