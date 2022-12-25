@@ -90,6 +90,9 @@ for i in $(seq 0 $last); do
     24)
       make -s && ./sol < input.txt
       ;;
+    25)
+      make -s && ./sol < input.txt
+      ;;
   esac
   cd ..
   if [[ "$i" -ne "$last" ]]; then

@@ -107,3 +107,7 @@ Requirements:
 ## Day 24: Rust
  - [Rust](https://www.rust-lang.org/)
  - [Make](https://www.gnu.org/software/make/)
+
+## Day 25: Nim
+ - [Nim](https://nim-lang.org/)
+ - [Make](https://www.gnu.org/software/make/)
