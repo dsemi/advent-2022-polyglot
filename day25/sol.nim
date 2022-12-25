@@ -5,8 +5,7 @@ import strutils
 
 echo "Day 25: Nim"
 var num = 0
-var line: string
-while stdin.readLine(line):
+for line in stdin.lines:
   for i, c in line.reversed:
     num += 5^i * ("=-012".find(c) - 2)
 var p1: string
