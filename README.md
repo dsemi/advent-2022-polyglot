@@ -101,13 +101,16 @@ Requirements:
  - [Make](https://www.gnu.org/software/make/)
 
 ## Day 23: C++
+Requirements:
  - [Clang](https://clang.llvm.org/)
  - [Make](https://www.gnu.org/software/make/)
 
 ## Day 24: Rust
+Requirements:
  - [Rust](https://www.rust-lang.org/)
  - [Make](https://www.gnu.org/software/make/)
 
 ## Day 25: Nim
+Requirements:
  - [Nim](https://nim-lang.org/)
  - [Make](https://www.gnu.org/software/make/)
