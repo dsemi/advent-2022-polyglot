@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <array>
 #include <iomanip>
 #include <iostream>
 #include <limits>
@@ -8,83 +9,96 @@
 
 using namespace std;
 
-typedef pair<int, int> coord;
-#define x first
-#define y second
+constexpr int MIN_INT = numeric_limits<int>::min();
+constexpr int MAX_INT = numeric_limits<int>::max();
 
-coord DIRS[8] = {{-1, 1}, {0, 1}, {1, 1}, {-1, 0}, {1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+constexpr int SZ = 2500;
 
-coord mv(const set<coord>& elves, coord elf, int dir) {
-  vector<bool> adjs{};
-  for (coord d : DIRS) {
-    coord pt = make_pair(elf.x + d.x, elf.y + d.y);
-    adjs.push_back(!elves.contains(pt));
-  }
-  if (!all_of(adjs.cbegin(), adjs.cend(), [](bool b){ return b; })) {
-    pair<bool, coord> poss[4] = {{adjs[0] && adjs[1] && adjs[2], {elf.x, elf.y+1}},
-                                 {adjs[5] && adjs[6] && adjs[7], {elf.x, elf.y-1}},
-                                 {adjs[0] && adjs[3] && adjs[5], {elf.x-1, elf.y}},
-                                 {adjs[2] && adjs[4] && adjs[7], {elf.x+1, elf.y}}};
-    for (int i = 0; i < 4; i++) {
-      pair<bool, coord> p = poss[(dir + i) % 4];
-      if (p.first) {
-        return p.second;
+constexpr array<int, 8> DIRS{ {-SZ - 1, -SZ, -SZ + 1, -1, 1, SZ - 1, SZ, SZ + 1}};
+
+constexpr array<array<int, 3>, 4> PROP_DIRS{ {
+  {-SZ - 1, -SZ, -SZ + 1},
+  {SZ - 1,   SZ,  SZ + 1},
+  {-SZ - 1, -1,  SZ - 1},
+  {-SZ + 1, 1,  SZ + 1},
+} };
+
+struct Elf {
+  int pos;
+  int prop;
+};
+
+vector<Elf*> parse() {
+  vector<Elf*> elves{};
+  int y = 0;
+  for (string line; getline(cin, line); y++) {
+    for (int x = 0; x < line.length(); x++) {
+      if (line[x] == '#') {
+        elves.push_back(new Elf {.pos = (y + SZ / 2)*SZ + x + SZ/2, .prop = MIN_INT });
       }
     }
   }
-  return elf;
+  return elves;
 }
 
-set<coord> parse() {
-  set<coord> s{};
-  int r = 0;
-  for (string line; getline(cin, line); r++) {
-    for (int c = 0; c < line.length(); c++) {
-      if (line[c] == '#') {
-        s.emplace(c, -r);
+bool step(vector<Elf*>& elves, vector<Elf*>& grid, vector<int>& props, int dir) {
+  for (Elf* elf : elves) {
+    if (any_of(DIRS.cbegin(), DIRS.cend(), [&elf, &grid](int d){ return grid[elf->pos+d] != NULL; })) {
+      for (int i = 0; i < 4; i++) {
+        array<int, 3> prop = PROP_DIRS[(dir+i) % 4];
+        if (grid[elf->pos + prop[0]] == NULL
+            && grid[elf->pos + prop[1]] == NULL
+            && grid[elf->pos + prop[2]] == NULL) {
+          elf->prop = elf->pos + prop[1];
+          props[elf->prop] += 1;
+          break;
+        }
       }
     }
   }
-  return s;
-}
-
-bool step(set<coord>& elves, int dir) {
-  set<coord> elves2 = elves;
-  elves.clear();
-  int c = 0;
-  for (coord elf : elves2) {
-    coord elf2 = mv(elves2, elf, dir);
-    c += elf != elf2;
-    if (!elves.insert(elf2).second) {
-      c--;
-      elves.erase(elf2);
-      elves.insert(elf);
-      elves.emplace(elf2.x*2-elf.x, elf2.y*2-elf.y);
+  bool moved = false;
+  for (Elf* elf : elves) {
+    if (elf->prop != MIN_INT) {
+      if (props[elf->prop] == 1) {
+        moved = true;
+        grid[elf->pos] = NULL;
+        grid[elf->prop] = elf;
+        elf->pos = elf->prop;
+      }
+      props[elf->prop] = 0;
+      elf->prop = MIN_INT;
     }
   }
-  return c > 0;
+  return moved;
 }
 
 int main() {
   cout << "Day 23: C++" << endl;
-  set<coord> elves = parse();
+  vector<Elf*> elves = parse();
+  vector<Elf*> grid(SZ*SZ);
+  for (Elf* elf : elves) {
+    grid[elf->pos] = elf;
+  }
+  vector<int> props(SZ*SZ);
   int i = 0;
   for (; i < 10; i++) {
-    step(elves, i % 4);
+    step(elves, grid, props, i % 4);
   }
-  int min_x = numeric_limits<int>::max();
-  int min_y = numeric_limits<int>::max();
-  int max_x = numeric_limits<int>::min();
-  int max_y = numeric_limits<int>::min();
-  for (coord elf : elves) {
-    min_x = min(min_x, elf.x);
-    min_y = min(min_y, elf.y);
-    max_x = max(max_x, elf.x + 1);
-    max_y = max(max_y, elf.y + 1);
+  int min_x = MAX_INT;
+  int min_y = MAX_INT;
+  int max_x = MIN_INT;
+  int max_y = MIN_INT;
+  for (Elf* elf : elves) {
+    int x = elf->pos % SZ;
+    int y = elf->pos / SZ;
+    min_x = min(min_x, x);
+    min_y = min(min_y, y);
+    max_x = max(max_x, x + 1);
+    max_y = max(max_y, y + 1);
   }
   cout << "Part 1: " << setw(20) << (max_x - min_x)*(max_y - min_y) - elves.size() << endl;
   for (;; i++) {
-    if (!step(elves, i % 4)) break;
+    if (!step(elves, grid, props, i % 4)) break;
   }
   cout << "Part 2: " << setw(20) << i + 1 << endl;
   return 0;
