@@ -1,7 +1,5 @@
 #lang racket
 
-(require racket/generator)
-
 (displayln "Day 16: Racket")
 
 (let* ([reg #px"Valve (\\w+) has flow rate=(\\d+); tunnels? leads? to valves? (.+)$"]
@@ -14,10 +12,12 @@
        [dist (make-vector (* size size) 1000000)]
        [flow-rates (for/vector ([r (map second valves)])
                      (string->number r))]
-       [working-valves (for/vector ([i (in-naturals)]
-                                    [r (in-vector flow-rates)]
-                                    #:when (> r 0))
-                         i)])
+       [working-valves (vector-sort (for/vector ([i (in-naturals)]
+                                                 [r (in-vector flow-rates)]
+                                                 #:when (> r 0))
+                                      i)
+                                    >
+                                    #:key (lambda (i) (vector-ref flow-rates i)))])
   (for ([valve valves])
     (let ([i (hash-ref ui (first valve))])
       (vector-set! dist (+ (* size i) i) 0)
@@ -30,36 +30,52 @@
     (vector-set! dist (+ (* size i) j) (min (vector-ref dist (+ (* size i) j))
                                             (+ (vector-ref dist (+ (* size i) k))
                                                (vector-ref dist (+ (* size k) j))))))
-  (define (make-gen sz)
-    (let* ([stack (list (list (hash-ref ui "AA") 0 0 sz))])
-      (generator ()
-        (let loop ()
-          (unless (null? stack)
-            (match-let ([(list i open-valves pressure time-left) (car stack)])
-              (set! stack (cdr stack))
-              (yield (list open-valves pressure))
-              (for ([j (in-vector working-valves)])
-                (let ([bit (arithmetic-shift 1 j)])
-                  (when (and (= 0 (bitwise-and open-valves bit))
-                             (< (vector-ref dist (+ (* size i) j)) (sub1 time-left)))
-                    (let ([time-left (- time-left (vector-ref dist (+ (* size i) j)) 1)])
-                      (set! stack (cons (list j (bitwise-ior open-valves bit) (+ pressure (* time-left (vector-ref flow-rates j))) time-left) stack)))))))
-            (loop))))))
+
+  (define (upper-bound open-valves pressure time-left)
+    (+ pressure
+       (for/sum ([m (in-inclusive-range (- time-left 2) 0 -2)]
+                 [flow (in-list (for/list ([i (in-naturals)]
+                                           [j (in-vector working-valves)]
+                                           #:when (= 0 (bitwise-and open-valves (arithmetic-shift 1 i))))
+                                  (vector-ref flow-rates j)))])
+         (* m flow))))
+
+  (define (dfs res i open-valves pressure time-left)
+    (let ([upper-bd (upper-bound open-valves pressure time-left)]
+          [idx (modulo open-valves (vector-length res))])
+      (unless (<= upper-bd (vector-ref res idx))
+        (vector-set! res idx (max (vector-ref res idx) pressure))
+        (for ([bit (in-naturals)]
+              [j (in-vector working-valves)])
+          (let ([bit (arithmetic-shift 1 bit)])
+            (when (and (= 0 (bitwise-and open-valves bit))
+                       (< (vector-ref dist (+ (* size i) j)) (sub1 time-left)))
+              (let ([time-left (- time-left (vector-ref dist (+ (* size i) j)) 1)])
+                (dfs res j (bitwise-ior open-valves bit) (+ pressure (* time-left (vector-ref flow-rates j))) time-left))))))))
+
+  (define (sim time-left bins)
+    (let ([res (make-vector bins 0)])
+      (dfs res (hash-ref ui "AA") 0 0 time-left)
+      res))
+
   (define p1
-    (for/fold ([mx 0])
-              ([ret (in-producer (make-gen 30) (void))])
-      (max mx (second ret))))
+    (let ([res (sim 30 1)])
+      (vector-ref res 0)))
   (printf "Part 1: ~a\n" (~r p1 #:min-width 20))
   (define p2
-    (let ([open-to-press (make-hash)])
-      (for ([ret (in-producer (make-gen 26) (void))])
-        (hash-set! open-to-press (first ret) (max (hash-ref open-to-press (first ret) 0) (second ret))))
-      (let ([best-pressures (for/vector ([(k v) (in-hash open-to-press)])
-                              (list k v))])
-        (for*/fold ([mx 0])
-                   ([hi (in-range (vector-length best-pressures))]
-                    [ei (in-range (add1 hi) (vector-length best-pressures))])
-          (match-let ([(list h-opens h-pressure) (vector-ref best-pressures hi)]
-                      [(list e-opens e-pressure) (vector-ref best-pressures ei)])
-            (if (= 0 (bitwise-and h-opens e-opens)) (max mx (+ h-pressure e-pressure)) mx))))))
+    (let ([best-pressures (sort (for/list ([i (in-naturals)]
+                                           [best (in-vector (sim 26 #xffff))]
+                                           #:when (> best 0))
+                                  (cons i best))
+                                >
+                                #:key cdr)])
+      (for/fold ([best 0])
+                ([i (in-naturals)]
+                 [humn (in-list best-pressures)])
+        (or (for/first ([cand (map (lambda (elep) (cons (car elep) (+ (cdr humn) (cdr elep))))
+                                   (drop best-pressures (add1 i)))]
+                        #:break (<= (cdr cand) best)
+                        #:when (= 0 (bitwise-and (car humn) (car cand))))
+              (cdr cand))
+            best))))
   (printf "Part 2: ~a\n" (~r p2 #:min-width 20)))

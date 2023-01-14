@@ -10,7 +10,17 @@ end
 
 function dfs(b::Blueprint, res, time, amts, bots, bans)
   time == 0 && return max(res, amts[1])
-  upperBd = amts[1] + time*bots[1] + time*(time+1)÷2
+  upperBd = amts[1] + time*bots[1]
+  obs, obsRate, obsCost = amts[2], bots[2], b.costs[1, 2]
+  for t in time-1:-1:0
+    if obs >= obsCost
+      obs += obsRate - obsCost
+      upperBd += t
+    else
+      obs += obsRate
+      obsRate += 1
+    end
+  end
   upperBd <= res && return res
   for (i, cost) in enumerate(eachrow(b.costs))
     bit = 1 << (i-1)
